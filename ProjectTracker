@@ -1,0 +1,256 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+vector<string> split(const string &);
+
+/*
+ * Complete the 'manageVolunteers' function below.
+ *
+ * The function accepts following parameters:
+ *  1. STRING_ARRAY commands
+ *  2. STRING_ARRAY events
+ *  3. STRING_ARRAY volunteers
+ *  4. INTEGER_ARRAY hours
+ */
+
+struct register_error : public std::range_error {
+    register_error(const char* what) : 
+        range_error(what) { }
+};
+
+vector<vector<string>> event_list;
+vector<vector<string>> volunteer_list;
+
+void register_event(const string& eName);
+void register_volunteer(const string& vName, int hours);
+void signup(const string& eName, const string& vName, int hours);
+void withdraw(const string& eName, const string& vName, int hours);
+
+void manageVolunteers(vector<string> commands, vector<string> events, vector<string> volunteers, vector<int> hours) {
+    // Complete this function. Remember that all you have to do display the information as specified by the output. No need to return anything!
+    for(size_t i = 0; i < commands.size(); i++) {
+        if(commands[i] == "REGISTER_EVENT") {
+            register_event(events[i]);
+        }
+        else if(commands[i] == "REGISTER_VOLUNTEER") {
+            register_volunteer(volunteers[i], hours[i]);
+        }
+        else if(commands[i] == "SIGNUP") {
+            signup(events[i], volunteers[i], hours[i]);
+        }
+        else if(commands[i] == "WITHDRAW") {
+            withdraw(events[i], volunteers[i], hours[i]);
+        }
+    }
+    // Final Print EVENTS
+    cout << "Events" << endl;
+    for(size_t i = 0; i < event_list.size(); i++) {
+        cout << event_list[i][0] << ": " << event_list[i][2] << " hour(s), " << event_list[i][1] << " volunteer(s)" << endl;  
+    }
+    
+    // Final Print VOLUNTEERS
+    cout << "Volunteers" << endl;
+    for(size_t i = 0; i < volunteer_list.size(); i++) {
+        cout << volunteer_list[i][0] << ": " << volunteer_list[i][1] << " free hour(s)" << endl;
+    }
+}
+
+void register_event(const string& eName) {
+    vector<string> e;
+    // name
+    e.push_back(eName);
+    // volunteers
+    e.push_back("0");
+    // total hours
+    e.push_back("0");
+    event_list.push_back(e);
+}
+    
+void register_volunteer(const string& vName, int hours) {
+    vector<string> v;
+    // name
+    v.push_back(vName);
+    // hours
+    v.push_back(to_string(hours));
+    volunteer_list.push_back(v);
+}
+    
+void signup(const string& eName, const string& vName, int hours) {
+    // Check if available event & volunteer
+    if(event_list.empty()) {
+        throw register_error("No events to signup for!");
+    }
+    else if(volunteer_list.empty()) {
+        throw register_error("No volunteers with available hours!");
+    }
+    // Update event, volunteer, and hours
+    for(size_t i = 0; i < event_list.size(); i++) {
+        if(event_list[i][0] == eName && hours > 0){
+            // Check if current volunteer is already volunteering hours
+            event_list[i].push_back(vName);
+            int cnt = count(event_list[i].begin(), event_list[i].end(), vName);
+            if(cnt <= 1) {
+                event_list[i][1] = to_string(stoi(event_list[i][1]) + 1);
+            }
+            event_list[i][2] = to_string(stoi(event_list[i][2]) + hours);  
+        }
+    }
+    for(size_t i = 0; i < volunteer_list.size(); i++) {
+        if(volunteer_list[i][0] == vName) {
+            // Check if volunteer has enough hours)
+            int remaining_hours = stoi(volunteer_list[i][1]) - hours;
+            if(remaining_hours < 0) {
+                throw range_error("Volunteer does not have enough available hours to signup!");
+            }
+            volunteer_list[i][1] = to_string(remaining_hours);
+        }
+    }
+}
+
+void withdraw(const string& eName, const string& vName, int hours) {
+    // Check if available event & volunteer
+    if(event_list.empty()) {
+        throw register_error("No events to withdraw from!");
+    }
+    else if(volunteer_list.empty()) {
+        throw register_error("No volunteers to withdraw!");
+    }
+    // Update event, volunteer, and hours
+    for(size_t i = 0; i < event_list.size(); i++) {
+        if(event_list[i][0] == eName && hours > 0){
+            int current_hours = stoi(event_list[i][2]);
+            if(hours > current_hours) {
+                throw range_error("Volunteer cannot withdraw this many hours!");
+            }
+            else if(hours == current_hours) {
+                event_list[i][1] = to_string(stoi(event_list[i][1]) - 1);
+            }
+            event_list[i][2] = to_string(stoi(event_list[i][2]) - hours);   
+        }
+    }
+    for(size_t i = 0; i < volunteer_list.size(); i++) {
+        if(volunteer_list[i][0] == vName) {
+            volunteer_list[i][1] = to_string(stoi(volunteer_list[i][1]) + hours);
+        }
+    }
+}
+
+int main()
+{
+    // Parsing the first line (an integer) into a variable n
+
+    string n_temp;
+    getline(cin, n_temp);
+
+    int n = stoi(ltrim(rtrim(n_temp)));
+
+    // Parsing the second line (a list of n space separated strings) into an array of strings called commands
+
+    string cmds_temp_temp;
+    getline(cin, cmds_temp_temp);
+
+    vector<string> cmds_temp = split(rtrim(cmds_temp_temp));
+
+    vector<string> cmds(n);
+
+    for (int i = 0; i < n; i++) {
+        string cmds_item = cmds_temp[i];
+
+        cmds[i] = cmds_item;
+    }
+
+    // Parsing the third line (a list of n space separated strings) into an array of strings called events
+
+    string evts_temp_temp;
+    getline(cin, evts_temp_temp);
+
+    vector<string> evts_temp = split(rtrim(evts_temp_temp));
+
+    vector<string> evts(n);
+
+    for (int i = 0; i < n; i++) {
+        string evts_item = evts_temp[i];
+
+        evts[i] = evts_item;
+    }
+
+    // Parsing the fourth line (a list of n space separated strings) into an array of strings called volunteers
+
+    string vols_temp_temp;
+    getline(cin, vols_temp_temp);
+
+    vector<string> vols_temp = split(rtrim(vols_temp_temp));
+
+    vector<string> vols(n);
+
+    for (int i = 0; i < n; i++) {
+        string vols_item = vols_temp[i];
+
+        vols[i] = vols_item;
+    }
+
+    // Parsing the fifth line (a list of n space separated numbers) into an array of integers called hours
+
+    string hrs_temp_temp;
+    getline(cin, hrs_temp_temp);
+
+    vector<string> hrs_temp = split(rtrim(hrs_temp_temp));
+
+    vector<int> hrs(n);
+
+    for (int i = 0; i < n; i++) {
+        int hrs_item = stoi(hrs_temp[i]);
+
+        hrs[i] = hrs_item;
+    }
+
+    // Define the function manageVolunteers with the specified comment
+
+    // Invoke manageVolunteers in main
+
+    manageVolunteers(cmds, evts, vols, hrs);
+
+    return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
+}
+
+vector<string> split(const string &str) {
+    vector<string> tokens;
+
+    string::size_type start = 0;
+    string::size_type end = 0;
+
+    while ((end = str.find(" ", start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+
+        start = end + 1;
+    }
+
+    tokens.push_back(str.substr(start));
+
+    return tokens;
+}
