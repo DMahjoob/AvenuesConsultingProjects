@@ -1,16 +1,53 @@
-What is Lunch Buddies?
-Lunch Buddies is an initiative designed to foster stronger connections within a community by pairing individuals to share a meal together—be it in person or virtually. The core idea is that a simple lunch break can become a meaningful networking or bonding opportunity when two people who might not otherwise interact get to chat one-on-one. Whether it’s students in a club, coworkers in an organization, or colleagues in a professional network, Lunch Buddies creates a casual space for participants to learn more about each other’s backgrounds, interests, and experiences.
+# Lunch Buddies
 
-How Does It Work?
+**What is Lunch Buddies?**  
+Lunch Buddies is an initiative designed to foster stronger connections within a community by pairing individuals to share a meal—either in-person or virtually. The core idea is that a simple lunch break can become a meaningful networking or bonding opportunity when two people who might not otherwise interact get to chat one-on-one. Whether you’re a student in a club, a coworker in an organization, or a professional in a larger network, Lunch Buddies provides a casual space to learn about each other’s backgrounds, interests, and experiences.
 
-Sign-Up and Preferences: Participants typically sign up through a short form, providing details such as their name, availability, dietary preferences, and sometimes areas of interest (e.g., career goals, hobbies, or academic fields). This data ensures that Lunch Buddies can make matches that are both convenient and relevant.
+---
 
-Pairing Algorithm: After the sign-up window closes, a matching algorithm (such as a basic pairing script or a more advanced model like a BERT-based recommender) processes everyone’s preferences. Its goal is to match people with at least one overlapping interest or an interesting contrast, creating a balanced pairing that encourages conversation.
+## How It Works
 
-Meeting Coordination: Once pairs are formed, each participant is notified of their buddy’s name and contact information, along with suggestions or instructions for scheduling their lunch. Depending on the organization, participants may receive calendar invites or a direct message prompting them to find a time that works best for both of them.
+1. **Sign-Up and Preferences**  
+   - Participants fill out a short form, sharing details such as:
+     - Name  
+     - Availability  
+     - Dietary preferences  
+     - Areas of interest (career goals, hobbies, academic focus)  
+   - This information ensures convenient and relevant matches.
 
-Enjoy the Lunch: Each pair meets at a chosen café, cafeteria, or virtual platform (like Zoom) during a scheduled break. The relaxed setting makes it easy to break the ice, discuss personal and professional interests, and build new connections.
+2. **Pairing Algorithm**  
+   - After sign-ups close, a matching algorithm (ranging from a basic script to an advanced model like a BERT-based recommender) processes each participant’s preferences.  
+   - The goal is to match individuals with overlapping interests or intriguing contrasts, encouraging stimulating conversations.
 
-Feedback and Community Building: Some versions of Lunch Buddies encourage participants to give feedback about their experience, letting the organizers know if the match was worthwhile, or if future pairings might benefit from certain tweaks. Over time, this helps the organizers refine the matching process, ensuring lunches remain fresh, fun, and engaging.
+3. **Meeting Coordination**  
+   - Each pair receives:
+     - Their partner’s name  
+     - Contact information  
+     - Suggestions/instructions for scheduling their lunch  
+   - Depending on the organization, participants might get a calendar invite or a direct message prompting them to choose a time that works best for both.
 
-By emphasizing casual, low-pressure interaction, Lunch Buddies helps communities develop relationships that might otherwise remain dormant in a busy environment. It’s an accessible, human way of encouraging collaboration, information sharing, and a sense of belonging—one lunch at a time.
+4. **Enjoy the Lunch**  
+   - Pairs meet at:
+     - A café or cafeteria  
+     - A virtual platform (e.g., Zoom or Microsoft Teams)  
+   - The relaxed setting encourages easy conversation about personal and professional interests, helping build genuine connections.
+
+5. **Feedback and Community Building**  
+   - Some Lunch Buddies programs collect participant feedback regarding their experience.  
+   - Organizers use this feedback to improve future pairings, making lunches more engaging and enjoyable each round.
+
+---
+
+### Why Lunch Buddies?
+
+By focusing on casual, low-pressure interaction, Lunch Buddies helps communities develop relationships that might otherwise remain dormant in a busy environment. It’s an accessible, human way of encouraging collaboration, sharing knowledge, and nurturing a sense of belonging—one lunch at a time.
+
+---
+
+## Contributing
+
+We welcome suggestions, improvements, and additional features! Please feel free to submit a pull request or open an issue if you have ideas on how to make Lunch Buddies even better.
+
+---
+
+**Happy Lunching!**
